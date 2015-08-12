@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath (group: 'com.sahlbach.gradle', name: 'gradle-jetty-eclipse-plugin', version: '1.9.+')
+    }
+}
+apply plugin: 'jettyEclipse'
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+ext.springVersion = '4.2.0.RELEASE'
+ext.aspectVersion = '1.6.11'
+dependencies {
+    compile "org.springframework:spring-webmvc:${springVersion}"
+    compile "org.springframework:spring-web:${springVersion}"
+    compile "org.springframework:spring-core:${springVersion}"
+    compile "org.springframework:spring-aop:${springVersion}"
+    compile "org.aspectj:aspectjrt:${aspectVersion}"
+    compile "org.aspectj:aspectjweaver:${aspectVersion}"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.4.1"
+}
+
+jettyEclipse {
+    automaticReload = true
+    httpPort = 4000
+}
